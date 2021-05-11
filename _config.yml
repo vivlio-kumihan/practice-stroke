@@ -13,7 +13,7 @@ timezone: 'Asia/Tokyo'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://vivlio-kumihan.github.io/practice-stroke
+url: https://vivlio-kumihan.github.io/practice-stroke/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -105,4 +105,3 @@ deploy:
   type: 'git'
   repo: git@github.com:vivlio-kumihan/practice-stroke.git
   branch: main
-  
