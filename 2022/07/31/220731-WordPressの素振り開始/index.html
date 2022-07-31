@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>WordPressの素振り開始 | SUBURI</title>
+  <title>PHPの素振り開始 | SUBURI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="WordPressの素振り開始をNode.jsで綴っていくという意地悪さで再出発です。まずは、PHPの文法の確認、WordPressの構成と基本操作の確認を今日やります。">
+  <meta name="description" content="まずは、PHPの素振り開始する。PHPの文法の確認から。 本日の進捗フォームで入力した値の受け渡し方にについて  入力フォームの書式のベースとしてこの形を覚える。 HTMLの仕組みとして送られるオブジェクトをPHPはどのように受け渡すのかを覚える。  123456789101112131415161718［入力フォーム］input.php&lt;html lang&#x3D;&quot;ja&quot;&amp;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WordPressの素振り開始">
+<meta property="og:title" content="PHPの素振り開始">
 <meta property="og:url" content="https://vivlio-kumihan.github.io/practice-stroke/2022/07/31/220731-WordPress%E3%81%AE%E7%B4%A0%E6%8C%AF%E3%82%8A%E9%96%8B%E5%A7%8B/index.html">
 <meta property="og:site_name" content="SUBURI">
-<meta property="og:description" content="WordPressの素振り開始をNode.jsで綴っていくという意地悪さで再出発です。まずは、PHPの文法の確認、WordPressの構成と基本操作の確認を今日やります。">
+<meta property="og:description" content="まずは、PHPの素振り開始する。PHPの文法の確認から。 本日の進捗フォームで入力した値の受け渡し方にについて  入力フォームの書式のベースとしてこの形を覚える。 HTMLの仕組みとして送られるオブジェクトをPHPはどのように受け渡すのかを覚える。  123456789101112131415161718［入力フォーム］input.php&lt;html lang&#x3D;&quot;ja&quot;&amp;g">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2022-07-30T23:33:10.000Z">
-<meta property="article:modified_time" content="2022-07-30T23:43:34.776Z">
+<meta property="article:modified_time" content="2022-07-31T14:01:16.677Z">
 <meta property="article:author" content="Nobuyuki Takahiro">
-<meta property="article:tag" content="WP">
+<meta property="article:tag" content="PHP">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/practice-stroke/atom.xml" title="SUBURI" type="application/atom+xml">
@@ -92,7 +92,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      WordPressの素振り開始
+      PHPの素振り開始
     </h1>
   
 
@@ -100,16 +100,28 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>WordPressの素振り開始をNode.jsで綴っていくという意地悪さで再出発です。<br>まずは、PHPの文法の確認、WordPressの構成と基本操作の確認を今日やります。</p>
+        <p>まずは、PHPの素振り開始する。<br>PHPの文法の確認から。</p>
+<h3 id="本日の進捗"><a href="#本日の進捗" class="headerlink" title="本日の進捗"></a>本日の進捗</h3><p><strong>フォームで入力した値の受け渡し方にについて</strong></p>
+<ul>
+<li>入力フォームの書式のベースとしてこの形を覚える。</li>
+<li>HTMLの仕組みとして送られるオブジェクトをPHPはどのように受け渡すのかを覚える。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">［入力フォーム］input.php</span><br><span class="line"></span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;form action=&quot;./confirm.php&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">    &lt;label for=&quot;&quot;&gt;名前&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; name=&quot;user_name&quot;&gt;</span><br><span class="line">    &lt;label for=&quot;&quot;&gt;趣味&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; name=&quot;hobby&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;確認する&quot;&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">［確認］comfirm.php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">$user_name = $_POST[&#x27;user_name&#x27;];</span><br><span class="line">$hobby = $_POST[&#x27;hobby&#x27;];</span><br><span class="line">echo var_dump($user_name);</span><br><span class="line">echo var_dump($hobby);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;p&gt;あなたのお名前は&lt;?php echo $user_name; ?&gt;さん、&lt;br&gt;</span><br><span class="line">  趣味は&lt;?php echo $hobby; ?&gt;ですね。&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;以上の情報でよろしいでしょうか？&lt;/p&gt;</span><br><span class="line">  &lt;form action=&quot;./complete.php&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;hidden&quot; name=&quot;user_name&quot; value=&quot;&lt;?php echo $user_name; ?&gt;&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;hidden&quot; name=&quot;hobby&quot; value=&quot;&lt;?php echo $hobby; ?&gt;&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;登録&quot;&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">［完了］complete.php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">$user_name = $_POST[&#x27;user_name&#x27;];</span><br><span class="line">$hobby = $_POST[&#x27;hobby&#x27;];</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;p&gt;こんにちは&lt;?php echo $user_name; ?&gt;さん。&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;趣味は&lt;?php echo $hobby; ?&gt;ということで承りました。&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;以上で登録を完了しました。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>課題</strong><br>Bootstrapで手堅くスタイリングする術の習得。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/07/31/220731-WordPress%E3%81%AE%E7%B4%A0%E6%8C%AF%E3%82%8A%E9%96%8B%E5%A7%8B/" data-id="cl68olo9q006b4zusbaz2cyqn" data-title="WordPressの素振り開始" class="article-share-link">共有</a>
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/07/31/220731-WordPress%E3%81%AE%E7%B4%A0%E6%8C%AF%E3%82%8A%E9%96%8B%E5%A7%8B/" data-id="cl68olo9q006b4zusbaz2cyqn" data-title="PHPの素振り開始" class="article-share-link">共有</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/WP/" rel="tag">WP</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/PHP/" rel="tag">PHP</a></li></ul>
 
     </footer>
   </div>
@@ -147,7 +159,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/RubberSoul/" rel="tag">RubberSoul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/WP/" rel="tag">WP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" rel="tag">アキ組</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" rel="tag">建物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%89%A9/" rel="tag">物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%8A%B1/" rel="tag">花</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%A1%97/" rel="tag">街</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" rel="tag">路地裏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" rel="tag">風景</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A3%9F/" rel="tag">食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%B3%A5/" rel="tag">鳥</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/RubberSoul/" rel="tag">RubberSoul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" rel="tag">アキ組</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" rel="tag">建物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%89%A9/" rel="tag">物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%8A%B1/" rel="tag">花</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%A1%97/" rel="tag">街</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" rel="tag">路地裏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" rel="tag">風景</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A3%9F/" rel="tag">食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%B3%A5/" rel="tag">鳥</a></li></ul>
     </div>
   </div>
 
@@ -157,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/practice-stroke/tags/RubberSoul/" style="font-size: 10px;">RubberSoul</a> <a href="/practice-stroke/tags/WP/" style="font-size: 10px;">WP</a> <a href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" style="font-size: 10px;">アキ組</a> <a href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" style="font-size: 15px;">建物</a> <a href="/practice-stroke/tags/%E7%89%A9/" style="font-size: 20px;">物</a> <a href="/practice-stroke/tags/%E8%8A%B1/" style="font-size: 16.67px;">花</a> <a href="/practice-stroke/tags/%E8%A1%97/" style="font-size: 20px;">街</a> <a href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" style="font-size: 11.67px;">路地裏</a> <a href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" style="font-size: 13.33px;">風景</a> <a href="/practice-stroke/tags/%E9%A3%9F/" style="font-size: 11.67px;">食</a> <a href="/practice-stroke/tags/%E9%B3%A5/" style="font-size: 18.33px;">鳥</a>
+      <a href="/practice-stroke/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/practice-stroke/tags/RubberSoul/" style="font-size: 10px;">RubberSoul</a> <a href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" style="font-size: 10px;">アキ組</a> <a href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" style="font-size: 15px;">建物</a> <a href="/practice-stroke/tags/%E7%89%A9/" style="font-size: 20px;">物</a> <a href="/practice-stroke/tags/%E8%8A%B1/" style="font-size: 16.67px;">花</a> <a href="/practice-stroke/tags/%E8%A1%97/" style="font-size: 20px;">街</a> <a href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" style="font-size: 11.67px;">路地裏</a> <a href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" style="font-size: 13.33px;">風景</a> <a href="/practice-stroke/tags/%E9%A3%9F/" style="font-size: 11.67px;">食</a> <a href="/practice-stroke/tags/%E9%B3%A5/" style="font-size: 18.33px;">鳥</a>
     </div>
   </div>
 
@@ -179,7 +191,7 @@
       <ul>
         
           <li>
-            <a href="/practice-stroke/2022/07/31/220731-WordPress%E3%81%AE%E7%B4%A0%E6%8C%AF%E3%82%8A%E9%96%8B%E5%A7%8B/">WordPressの素振り開始</a>
+            <a href="/practice-stroke/2022/07/31/220731-WordPress%E3%81%AE%E7%B4%A0%E6%8C%AF%E3%82%8A%E9%96%8B%E5%A7%8B/">PHPの素振り開始</a>
           </li>
         
           <li>
