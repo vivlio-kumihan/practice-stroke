@@ -6,16 +6,16 @@
   
   <title>220802 | SUBURI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="光の方へ　向いていたいね。三日目。   今日の注目点 リストのスタイリングを一段ごとに色分けしたい。HTMLで生で書くと煩雑なのでPHPでというコード。 ただ、HTMLに組み込むときに大変コツが必要という話。 HTMLから見て、でPHPのコードを隠しながら書く。 まぁ、書く効率と非常に判読性が悪くなる。 もっと効率の良い書き方はないのか？  1234567891011121314151617181">
+  <meta name="description" content="光の方へ　向いていたいね。三日目。   今日の注目点 リストのスタイリングを一段ごとに色分けしたい。HTMLで生で書くと煩雑なのでPHPでというコード。 ただ、HTMLに組み込むときに大変コツが必要という話。 HTMLから見て、でPHPのコードを隠しながら書く。 まぁ、書く効率と可読性が非常に悪くなる。 もっと効率の良い書き方はないのか？  1234567891011121314151617181">
 <meta property="og:type" content="article">
 <meta property="og:title" content="220802">
 <meta property="og:url" content="https://vivlio-kumihan.github.io/practice-stroke/2022/08/02/220802/index.html">
 <meta property="og:site_name" content="SUBURI">
-<meta property="og:description" content="光の方へ　向いていたいね。三日目。   今日の注目点 リストのスタイリングを一段ごとに色分けしたい。HTMLで生で書くと煩雑なのでPHPでというコード。 ただ、HTMLに組み込むときに大変コツが必要という話。 HTMLから見て、でPHPのコードを隠しながら書く。 まぁ、書く効率と非常に判読性が悪くなる。 もっと効率の良い書き方はないのか？  1234567891011121314151617181">
+<meta property="og:description" content="光の方へ　向いていたいね。三日目。   今日の注目点 リストのスタイリングを一段ごとに色分けしたい。HTMLで生で書くと煩雑なのでPHPでというコード。 ただ、HTMLに組み込むときに大変コツが必要という話。 HTMLから見て、でPHPのコードを隠しながら書く。 まぁ、書く効率と可読性が非常に悪くなる。 もっと効率の良い書き方はないのか？  1234567891011121314151617181">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://vivlio-kumihan.github.io/practice-stroke/2022/08/02/220802/220515_1023036.jpg">
 <meta property="article:published_time" content="2022-08-02T11:09:15.000Z">
-<meta property="article:modified_time" content="2022-08-02T11:50:26.569Z">
+<meta property="article:modified_time" content="2022-08-02T12:47:56.574Z">
 <meta property="article:author" content="Nobuyuki Takahiro">
 <meta property="article:tag" content="リスト表記">
 <meta property="article:tag" content="繰り返し">
@@ -114,7 +114,7 @@
 <li>リストのスタイリングを一段ごとに色分けしたい。HTMLで生で書くと煩雑なのでPHPでというコード。</li>
 <li>ただ、HTMLに組み込むときに大変コツが必要という話。</li>
 <li>HTMLから見て、<?php ... ?>でPHPのコードを隠しながら書く。</li>
-<li>まぁ、書く効率と非常に判読性が悪くなる。</li>
+<li>まぁ、書く効率と可読性が非常に悪くなる。</li>
 <li>もっと効率の良い書き方はないのか？</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 元のコード --&gt;</span><br><span class="line">&lt;?php for ($l = 1; $l &lt; 5; $l++)</span><br><span class="line">  if ($l % 2 === 1) &#123; ?&gt;</span><br><span class="line">  &lt;p&gt;&lt;?php echo $l . &quot;奇数&quot; ?&gt;&lt;/p&gt;</span><br><span class="line">&lt;?php &#125; else &#123; ?&gt;</span><br><span class="line">  &lt;p&gt;&lt;?php echo $l . &quot;偶数&quot; ?&gt;&lt;/p&gt;</span><br><span class="line">&lt;?php &#125; ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 上記コードをリストにあてはめて完成させる。 --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  ...</span><br><span class="line">  ...</span><br><span class="line">  &lt;title&gt;colored_list&lt;/title&gt;</span><br><span class="line">  &lt;style&gt;</span><br><span class="line">    ul &#123; width: 100px; &#125;</span><br><span class="line">    .color-red &#123; background-color: red; &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;?php for ($l = 1; $l &lt; 9; $l++)</span><br><span class="line">      if ($l % 2 === 1) &#123; ?&gt;</span><br><span class="line">      &lt;li class=&quot;color-red&quot;&gt;&lt;?php echo $l ?&gt;&lt;/li&gt;</span><br><span class="line">    &lt;?php &#125; else &#123; ?&gt;</span><br><span class="line">      &lt;li&gt;&lt;?php echo $l ?&gt;&lt;/li&gt;</span><br><span class="line">    &lt;?php &#125; ?&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
