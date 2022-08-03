@@ -75,6 +75,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-220803" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/practice-stroke/2022/08/03/220803/" class="article-date">
+  <time class="dt-published" datetime="2022-08-03T11:55:23.000Z" itemprop="datePublished">2022-08-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/practice-stroke/2022/08/03/220803/">220803</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>光の量をコントロールすることで心象を変化させることができる。意図的に。<br>四日目。</p>
+<img src="/practice-stroke/2022/08/03/220803/220504_1002538.jpg" class="">
+
+<p>PHPで、フォーム、リスト、テーブルをどのように作成するかを学ぶ。</p>
+<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><ul>
+<li><p>form &#x3D;&gt; actionで『post』で指定して送信先へのデータを送信をこの1行がやってる。<br><code>&lt;form action=&quot;checkbox_receive.php&quot; method=&quot;post&quot;&gt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- checkbox_send.php --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;チェックボックスを使ったフォーム&lt;/h1&gt;</span><br><span class="line">  &lt;form action=&quot;checkbox_receive.php&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">      &lt;!-- colors[]とするこで、配列へチェックボックスに印をする度に値がappendされるわけ。 --&gt;</span><br><span class="line">      &lt;!-- 配列名としては『colors』であることに注意が必要。 --&gt;</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;青&quot;&gt;青</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;赤&quot;&gt;赤</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;黄&quot;&gt;黄</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;緑&quot;&gt;緑</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;紫&quot;&gt;紫</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;白&quot;&gt;白</span><br><span class="line">      &lt;input type=&quot;checkbox&quot; name=&quot;colors[]&quot; value=&quot;橙&quot;&gt;橙</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>レシーバーは、チェックボックスの値を受け取る。</p>
+</li>
+<li><p>連想配列colorsで収集したデータをここで新たな器に納めている。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- checkbox_receive.php --&gt;</span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$colors = $_POST[&#x27;colors&#x27;];</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;受信ページ&lt;/h1&gt;</span><br><span class="line">  &lt;h3&gt;お好きな色&lt;/h3&gt;</span><br><span class="line">  &lt;!-- 好みの色をリストで展開させる。 --&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;?php foreach($colors as $val) &#123; ?&gt;</span><br><span class="line">      &lt;li&gt; &lt;?php echo $val ?&gt; &lt;/li&gt;</span><br><span class="line">    &lt;?php &#125; ?&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/03/220803/" data-id="cl6dkqzuy00005xus05s7glrf" data-title="220803" class="article-share-link">共有</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-220802" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/practice-stroke/2022/08/02/220802/" class="article-date">
@@ -93,7 +148,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/practice-stroke/2022/08/02/220802/">220802</a>
+      <a class="p-name article-title" href="/practice-stroke/2022/08/02/220802/">効率と可読性</a>
     </h1>
   
 
@@ -109,7 +164,7 @@
 <li>ただ、HTMLに組み込むときに大変コツが必要という話。</li>
 <li>HTMLから見て、<?php ... ?>でPHPのコードを隠しながら書く。</li>
 <li>まぁ、書く効率と可読性が非常に悪くなる。</li>
-<li>もっと効率の良い書き方はないのか？</li>
+<li>もっと効率の良い書き方はないのか？　と今は考えている。</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 元のコード --&gt;</span><br><span class="line">&lt;?php for ($l = 1; $l &lt; 5; $l++)</span><br><span class="line">  if ($l % 2 === 1) &#123; ?&gt;</span><br><span class="line">  &lt;p&gt;&lt;?php echo $l . &quot;奇数&quot; ?&gt;&lt;/p&gt;</span><br><span class="line">&lt;?php &#125; else &#123; ?&gt;</span><br><span class="line">  &lt;p&gt;&lt;?php echo $l . &quot;偶数&quot; ?&gt;&lt;/p&gt;</span><br><span class="line">&lt;?php &#125; ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 上記コードをリストにあてはめて完成させる。 --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  ...</span><br><span class="line">  ...</span><br><span class="line">  &lt;title&gt;colored_list&lt;/title&gt;</span><br><span class="line">  &lt;style&gt;</span><br><span class="line">    ul &#123; width: 100px; &#125;</span><br><span class="line">    .color-red &#123; background-color: red; &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;?php for ($l = 1; $l &lt; 9; $l++)</span><br><span class="line">      if ($l % 2 === 1) &#123; ?&gt;</span><br><span class="line">      &lt;li class=&quot;color-red&quot;&gt;&lt;?php echo $l ?&gt;&lt;/li&gt;</span><br><span class="line">    &lt;?php &#125; else &#123; ?&gt;</span><br><span class="line">      &lt;li&gt;&lt;?php echo $l ?&gt;&lt;/li&gt;</span><br><span class="line">    &lt;?php &#125; ?&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
@@ -121,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/02/220802/" data-id="cl6c4jlei006praus2wftho0b" data-title="220802" class="article-share-link">共有</a>
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/02/220802/" data-id="cl6c4jlei006praus2wftho0b" data-title="効率と可読性" class="article-share-link">共有</a>
       
       
       
@@ -535,54 +590,6 @@
 
 
   
-    <article id="post-210705" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/practice-stroke/2021/07/05/210705/" class="article-date">
-  <time class="dt-published" datetime="2021-07-05T12:00:00.000Z" itemprop="datePublished">2021-07-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/practice-stroke/categories/%E5%86%99%E7%9C%9F/">写真</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/practice-stroke/2021/07/05/210705/">筋肉痛</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>軽度だが単純な運動を半日続けると筋肉通になってしまうと再認識した。<br>あと4年で還暦なんだね。</p>
-<img src="/practice-stroke/2021/07/05/210705/210705_G9_1130708.jpg" class="" title="大阪市都島区野江">
-
-<p>大阪市　都島区野江 | G9&#x2F;G20mm</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2021/07/05/210705/" data-id="cl6c4jle8005qraus251eaop0" data-title="筋肉痛" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/%E8%A1%97/" rel="tag">街</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -640,7 +647,11 @@
       <ul>
         
           <li>
-            <a href="/practice-stroke/2022/08/02/220802/">220802</a>
+            <a href="/practice-stroke/2022/08/03/220803/">220803</a>
+          </li>
+        
+          <li>
+            <a href="/practice-stroke/2022/08/02/220802/">効率と可読性</a>
           </li>
         
           <li>
@@ -653,10 +664,6 @@
         
           <li>
             <a href="/practice-stroke/2021/07/11/210711/">コンテナガレージ</a>
-          </li>
-        
-          <li>
-            <a href="/practice-stroke/2021/07/10/210710/">籠る</a>
           </li>
         
       </ul>
