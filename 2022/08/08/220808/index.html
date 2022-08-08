@@ -4,14 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>タグ: 街 | SUBURI</title>
+  <title>GETを知る | SUBURI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SUBURI">
-<meta property="og:url" content="https://vivlio-kumihan.github.io/practice-stroke/tags/%E8%A1%97/index.html">
+  <meta name="description" content="GETでidが渡ってきた時にその情報を使ってサーバーに検索をさせるコード。確認のためにすることは、URLの末尾に『?id&#x3D;2』としてやれば、var_dump（）しているので、HTMLにつかんだ情報を表示させることができる。こうやって通信を確認するんだ。凄い。 12345678910111213141516171819202122232425262728293031323334353637">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GETを知る">
+<meta property="og:url" content="https://vivlio-kumihan.github.io/practice-stroke/2022/08/08/220808/index.html">
 <meta property="og:site_name" content="SUBURI">
+<meta property="og:description" content="GETでidが渡ってきた時にその情報を使ってサーバーに検索をさせるコード。確認のためにすることは、URLの末尾に『?id&#x3D;2』としてやれば、var_dump（）しているので、HTMLにつかんだ情報を表示させることができる。こうやって通信を確認するんだ。凄い。 12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2022-08-08T14:06:23.000Z">
+<meta property="article:modified_time" content="2022-08-08T14:11:04.655Z">
 <meta property="article:author" content="Nobuyuki Takahiro">
+<meta property="article:tag" content="DB">
+<meta property="article:tag" content="GET">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/practice-stroke/atom.xml" title="SUBURI" type="application/atom+xml">
@@ -73,216 +79,60 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/practice-stroke/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/07/05/210705/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-07-05T12:00:00.000Z" itemprop="datePublished">7月 5</time>
+        <section id="main"><article id="post-220808" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/practice-stroke/2022/08/08/220808/" class="article-date">
+  <time class="dt-published" datetime="2022-08-08T14:06:23.000Z" itemprop="datePublished">2022-08-08</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/07/05/210705/">筋肉痛</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      GETを知る
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/06/21/210621/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-06-21T12:00:00.000Z" itemprop="datePublished">6月 21</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/06/21/210621/">ひと段落</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/06/16/210616/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-06-16T12:00:00.000Z" itemprop="datePublished">6月 16</time>
-</a>
+        <p>GETでidが渡ってきた時にその情報を使ってサーバーに検索をさせるコード。<br>確認のためにすることは、URLの末尾に『?id&#x3D;2』としてやれば、var_dump（）しているので、HTMLにつかんだ情報を表示させることができる。<br>こうやって通信を確認するんだ。凄い。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$id = &#x27;&#x27;;</span><br><span class="line">if (isset($_GET[&#x27;id&#x27;])) &#123;</span><br><span class="line">  $id = (int)$_GET[&#x27;id&#x27;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$dsn = &quot;mysql:dbname=sample;host=localhost;charset=utf8&quot;;</span><br><span class="line">$user = &quot;root&quot;;</span><br><span class="line">$password = &quot;root&quot;;</span><br><span class="line">$data = [];</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  $db_ins = new PDO($dsn, $user, $password);</span><br><span class="line">  $db_ins-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line"></span><br><span class="line">$sql =</span><br><span class="line">&lt;&lt;&lt;SQL</span><br><span class="line">SELECT</span><br><span class="line">    `name`,</span><br><span class="line">    `age`,</span><br><span class="line">    club.club_name,</span><br><span class="line">    club.count,</span><br><span class="line">    club.overview</span><br><span class="line">FROM</span><br><span class="line">    user</span><br><span class="line">JOIN club ON user.club_id = club.club_id</span><br><span class="line">WHERE user.id = :id</span><br><span class="line">LIMIT 1</span><br><span class="line">SQL;</span><br><span class="line"></span><br><span class="line">  $stmt = $db_ins-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:id&#x27;, $id, PDO::PARAM_INT);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  $row = $stmt-&gt;fetch(PDO::FETCH_ASSOC);</span><br><span class="line">  var_dump($row);</span><br><span class="line"></span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  print(&quot;接続に失敗しました。&quot; . $e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/06/16/210616/">茶屋町のど真ん中</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/06/10/210610/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-06-09T23:23:32.000Z" itemprop="datePublished">6月 10</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/08/220808/" data-id="cl6ku0o4h00001zusamvc5qi6" data-title="GETを知る" class="article-share-link">共有</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/06/10/210610/">納品</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/06/08/210608/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-06-08T00:58:26.000Z" itemprop="datePublished">6月 8</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/06/08/210608/">走り周ったあと</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/06/07/210607/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-06-07T12:31:36.000Z" itemprop="datePublished">6月 7</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/06/07/210607/">梅雨の真夏日</a>
-    </h1>
-  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/DB/" rel="tag">DB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/GET/" rel="tag">GET</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/practice-stroke/2022/08/07/220807/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">DB関連で分かったことの整理</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/05/29/210529/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-05-29T12:57:59.000Z" itemprop="datePublished">5月 29</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/05/29/210529/">八幡を歩く</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/05/28/210528/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-05-28T12:57:54.000Z" itemprop="datePublished">5月 28</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/05/28/210528/">小倉を歩く</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/05/26/210526/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-05-26T12:28:11.000Z" itemprop="datePublished">5月 26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/05/26/210526/">ため池</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/practice-stroke/2021/05/25/210525/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-05-25T09:49:13.000Z" itemprop="datePublished">5月 25</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/practice-stroke/2021/05/25/210525/">10,000歩</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/practice-stroke/tags/%E8%A1%97/page/2/">2</a><a class="extend next" rel="next" href="/practice-stroke/tags/%E8%A1%97/page/2/">次へ &raquo;</a>
-  </nav>
 
 </section>
         
