@@ -75,6 +75,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-220804" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/practice-stroke/2022/08/04/220804/" class="article-date">
+  <time class="dt-published" datetime="2022-08-04T12:09:38.000Z" itemprop="datePublished">2022-08-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/practice-stroke/2022/08/04/220804/">DBへの入口に到達</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一気につかまえたい。<br>五日目。</p>
+<img src="/practice-stroke/2022/08/04/220804/220110_1156190.jpg" class="">
+
+<p>PHPを使って、DB接続をする。<br>最初、教則本どおりやってもエラーが出る。<br>多分、情報が古いのかもしれない。<br>エラーの番号で検索を2回ほどくりかえして見事突破。<br>今、独学するには最高の環境なのだと改めて実感する。</p>
+<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><ul>
+<li>SQLの文章をかませる必要がある。SQLの文法には要注意する。</li>
+</ul>
+<p><strong>まずはDBへの接続</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dsn = &quot;mysql:dbname=sample;host=localhost;charset=utf8&quot;;</span><br><span class="line">$user = &quot;root&quot;;</span><br><span class="line">$password = &quot;root&quot;;  // &lt;= パスワードをダブルクォーテーションで括ること。</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">    $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">    $dbh -&gt; setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">    echo &#x27;接続に成功しました。&#x27;;</span><br><span class="line">&#125; catch(PDOException $e) &#123;</span><br><span class="line">    print(&quot;接続に失敗しました。&quot;.$e -&gt; getMessage());</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DBへSQL文をそのまま書いて値の追加</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">try &#123;</span><br><span class="line">  $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">  $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  $sql = &quot;INSERT INTO `user`(`id`, `name`, `age`, `email`) VALUES (NULL, &#x27;高広　信之&#x27;, &#x27;57&#x27;, &#x27;taka@nobu.com&#x27;)&quot;;</span><br><span class="line">  // ↑ phpMyAdminのSQLの操作画面に出てくるサンプルをたよりにして書いたら見事1発で通る。</span><br><span class="line">  $stmt = $dbh-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:name&#x27;, $name, PDO::PARAM_STR);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:age&#x27;, $age, PDO::PARAM_INT);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:email&#x27;, $age, PDO::PARAM_STR);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  echo &#x27;データを追加しました。&#x27;;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  print(&quot;接続に失敗しました。&quot;.$e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DBへ変数を使って値の追加</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$name = &quot;王　貞治&quot;;</span><br><span class="line">$age = 77;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">  $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  $sql = &quot;INSERT INTO `user`(`name`, `age`) VALUES (:name, :age)&quot;;</span><br><span class="line">  $stmt = $dbh-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:name&#x27;, $name, PDO::PARAM_STR);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:age&#x27;, $age, PDO::PARAM_INT);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  echo &quot;&#123;$name&#125;さんのデータを追加しました。&quot;;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  print(&quot;接続に失敗しました。&quot;.$e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DBへ値の変更</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dsn = &quot;mysql:dbname=sample;host=localhost;charset=utf8&quot;;</span><br><span class="line">$user = &quot;root&quot;;</span><br><span class="line">$password = &quot;root&quot;;</span><br><span class="line">$email = &quot;hogehoga@kazue.com&quot;;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">  $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  $sql = &quot;UPDATE `user` SET `email` = :email WHERE id = 2&quot;;</span><br><span class="line">  $stmt = $dbh-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:email&#x27;, $email, PDO::PARAM_STR);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  echo &#x27;処理が終了しました。&#x27;;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  print(&quot;接続に失敗しました。&quot;.$e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>そして削除</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">try &#123;</span><br><span class="line">  $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">  $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  $sql = &quot;DELETE FROM `user` WHERE id = 10&quot;;</span><br><span class="line">  $stmt = $dbh-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  echo &#x27;処理が終了しました。&#x27;;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  print(&quot;接続に失敗しました。&quot;.$e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/04/220804/" data-id="cl6f0y8630000pxusbyir6zma" data-title="DBへの入口に到達" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/DB/" rel="tag">DB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/DELETE/" rel="tag">DELETE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/INSERT/" rel="tag">INSERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/UPDATE/" rel="tag">UPDATE</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-220803" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/practice-stroke/2022/08/03/220803/" class="article-date">
@@ -545,54 +609,6 @@
 
 
   
-    <article id="post-210706" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/practice-stroke/2021/07/06/210706/" class="article-date">
-  <time class="dt-published" datetime="2021-07-06T12:00:00.000Z" itemprop="datePublished">2021-07-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/practice-stroke/categories/%E5%86%99%E7%9C%9F/">写真</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/practice-stroke/2021/07/06/210706/">確認できた</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>どうせそうなんだろうと思っていても、<br>相手の思惑を確認できたことは、気分は悪いが悪いことでは無い。</p>
-<img src="/practice-stroke/2021/07/06/210706/210706_G9_1130801.jpg" class="" title="枚方市くずは中の池公園">
-
-<p>枚方市　くずは中の池公園 | G9&#x2F;Leica 100-400mm</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2021/07/06/210706/" data-id="cl6c4jle9005trausgyo99wnt" data-title="確認できた" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/%E9%B3%A5/" rel="tag">鳥</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -618,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SERVER-REQUEST-METHOD/" rel="tag">$_SERVER[&#39;REQUEST_METHOD&#39;]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/DB/" rel="tag">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/DELETE/" rel="tag">DELETE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/GET/" rel="tag">GET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/INNER-JOIN/" rel="tag">INNER JOIN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/INSERT/" rel="tag">INSERT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/POST/" rel="tag">POST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/REQUEST-METHOD/" rel="tag">REQUEST_METHOD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/RubberSoul/" rel="tag">RubberSoul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/UPDATE/" rel="tag">UPDATE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SERVER/" rel="tag">_SERVER</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/bindValue/" rel="tag">bindValue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/deploy/" rel="tag">deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/foreach/" rel="tag">foreach</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/glob/" rel="tag">glob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/if/" rel="tag">if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/logout/" rel="tag">logout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/password/" rel="tag">password</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/password-hash/" rel="tag">password_hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/validation/" rel="tag">validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" rel="tag">アキ組</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0/" rel="tag">フォーム</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%AA%E3%82%B9%E3%83%88%E8%A1%A8%E8%A8%98/" rel="tag">リスト表記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88/" rel="tag">リダイレクト</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" rel="tag">建物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%89%A9/" rel="tag">物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97/" rel="tag">繰り返し</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%8A%B1/" rel="tag">花</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%A1%97/" rel="tag">街</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" rel="tag">路地裏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" rel="tag">風景</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A3%9F/" rel="tag">食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%B3%A5/" rel="tag">鳥</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SERVER-REQUEST-METHOD/" rel="tag">$_SERVER[&#39;REQUEST_METHOD&#39;]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/CSRF/" rel="tag">CSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/DB/" rel="tag">DB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/DELETE/" rel="tag">DELETE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/GET/" rel="tag">GET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/INNER-JOIN/" rel="tag">INNER JOIN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/INSERT/" rel="tag">INSERT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/POST/" rel="tag">POST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/REQUEST-METHOD/" rel="tag">REQUEST_METHOD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/RubberSoul/" rel="tag">RubberSoul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/UPDATE/" rel="tag">UPDATE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/XSS/" rel="tag">XSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/SERVER/" rel="tag">_SERVER</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/bindValue/" rel="tag">bindValue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/deploy/" rel="tag">deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/foreach/" rel="tag">foreach</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/glob/" rel="tag">glob</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/if/" rel="tag">if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/logout/" rel="tag">logout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/password/" rel="tag">password</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/password-hash/" rel="tag">password_hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/validation/" rel="tag">validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" rel="tag">アキ組</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0/" rel="tag">フォーム</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%AA%E3%82%B9%E3%83%88%E8%A1%A8%E8%A8%98/" rel="tag">リスト表記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88/" rel="tag">リダイレクト</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" rel="tag">建物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%89%A9/" rel="tag">物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97/" rel="tag">繰り返し</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%8A%B1/" rel="tag">花</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%A1%97/" rel="tag">街</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" rel="tag">路地裏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" rel="tag">風景</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%A3%9F/" rel="tag">食</a></li><li class="tag-list-item"><a class="tag-list-link" href="/practice-stroke/tags/%E9%B3%A5/" rel="tag">鳥</a></li></ul>
     </div>
   </div>
 
@@ -628,7 +644,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/practice-stroke/tags/SERVER-REQUEST-METHOD/" style="font-size: 10px;">$_SERVER['REQUEST_METHOD']</a> <a href="/practice-stroke/tags/DB/" style="font-size: 14.29px;">DB</a> <a href="/practice-stroke/tags/DELETE/" style="font-size: 10px;">DELETE</a> <a href="/practice-stroke/tags/GET/" style="font-size: 10px;">GET</a> <a href="/practice-stroke/tags/INNER-JOIN/" style="font-size: 10px;">INNER JOIN</a> <a href="/practice-stroke/tags/INSERT/" style="font-size: 10px;">INSERT</a> <a href="/practice-stroke/tags/POST/" style="font-size: 11.43px;">POST</a> <a href="/practice-stroke/tags/REQUEST-METHOD/" style="font-size: 10px;">REQUEST_METHOD</a> <a href="/practice-stroke/tags/RubberSoul/" style="font-size: 10px;">RubberSoul</a> <a href="/practice-stroke/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/practice-stroke/tags/UPDATE/" style="font-size: 10px;">UPDATE</a> <a href="/practice-stroke/tags/SERVER/" style="font-size: 10px;">_SERVER</a> <a href="/practice-stroke/tags/bindValue/" style="font-size: 10px;">bindValue</a> <a href="/practice-stroke/tags/deploy/" style="font-size: 10px;">deploy</a> <a href="/practice-stroke/tags/foreach/" style="font-size: 10px;">foreach</a> <a href="/practice-stroke/tags/function/" style="font-size: 10px;">function</a> <a href="/practice-stroke/tags/glob/" style="font-size: 10px;">glob</a> <a href="/practice-stroke/tags/if/" style="font-size: 10px;">if</a> <a href="/practice-stroke/tags/logout/" style="font-size: 10px;">logout</a> <a href="/practice-stroke/tags/password/" style="font-size: 10px;">password</a> <a href="/practice-stroke/tags/password-hash/" style="font-size: 10px;">password_hash</a> <a href="/practice-stroke/tags/validation/" style="font-size: 10px;">validation</a> <a href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" style="font-size: 10px;">アキ組</a> <a href="/practice-stroke/tags/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0/" style="font-size: 10px;">フォーム</a> <a href="/practice-stroke/tags/%E3%83%AA%E3%82%B9%E3%83%88%E8%A1%A8%E8%A8%98/" style="font-size: 10px;">リスト表記</a> <a href="/practice-stroke/tags/%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88/" style="font-size: 10px;">リダイレクト</a> <a href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" style="font-size: 15.71px;">建物</a> <a href="/practice-stroke/tags/%E7%89%A9/" style="font-size: 20px;">物</a> <a href="/practice-stroke/tags/%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97/" style="font-size: 10px;">繰り返し</a> <a href="/practice-stroke/tags/%E8%8A%B1/" style="font-size: 17.14px;">花</a> <a href="/practice-stroke/tags/%E8%A1%97/" style="font-size: 20px;">街</a> <a href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" style="font-size: 12.86px;">路地裏</a> <a href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" style="font-size: 14.29px;">風景</a> <a href="/practice-stroke/tags/%E9%A3%9F/" style="font-size: 12.86px;">食</a> <a href="/practice-stroke/tags/%E9%B3%A5/" style="font-size: 18.57px;">鳥</a>
+      <a href="/practice-stroke/tags/SERVER-REQUEST-METHOD/" style="font-size: 10px;">$_SERVER['REQUEST_METHOD']</a> <a href="/practice-stroke/tags/CSRF/" style="font-size: 10px;">CSRF</a> <a href="/practice-stroke/tags/DB/" style="font-size: 14.29px;">DB</a> <a href="/practice-stroke/tags/DELETE/" style="font-size: 10px;">DELETE</a> <a href="/practice-stroke/tags/GET/" style="font-size: 10px;">GET</a> <a href="/practice-stroke/tags/INNER-JOIN/" style="font-size: 10px;">INNER JOIN</a> <a href="/practice-stroke/tags/INSERT/" style="font-size: 10px;">INSERT</a> <a href="/practice-stroke/tags/POST/" style="font-size: 11.43px;">POST</a> <a href="/practice-stroke/tags/REQUEST-METHOD/" style="font-size: 10px;">REQUEST_METHOD</a> <a href="/practice-stroke/tags/RubberSoul/" style="font-size: 10px;">RubberSoul</a> <a href="/practice-stroke/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/practice-stroke/tags/UPDATE/" style="font-size: 10px;">UPDATE</a> <a href="/practice-stroke/tags/XSS/" style="font-size: 10px;">XSS</a> <a href="/practice-stroke/tags/SERVER/" style="font-size: 10px;">_SERVER</a> <a href="/practice-stroke/tags/bindValue/" style="font-size: 10px;">bindValue</a> <a href="/practice-stroke/tags/deploy/" style="font-size: 10px;">deploy</a> <a href="/practice-stroke/tags/foreach/" style="font-size: 10px;">foreach</a> <a href="/practice-stroke/tags/function/" style="font-size: 10px;">function</a> <a href="/practice-stroke/tags/glob/" style="font-size: 10px;">glob</a> <a href="/practice-stroke/tags/if/" style="font-size: 10px;">if</a> <a href="/practice-stroke/tags/logout/" style="font-size: 10px;">logout</a> <a href="/practice-stroke/tags/password/" style="font-size: 10px;">password</a> <a href="/practice-stroke/tags/password-hash/" style="font-size: 10px;">password_hash</a> <a href="/practice-stroke/tags/validation/" style="font-size: 10px;">validation</a> <a href="/practice-stroke/tags/%E3%82%A2%E3%82%AD%E7%B5%84/" style="font-size: 10px;">アキ組</a> <a href="/practice-stroke/tags/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0/" style="font-size: 10px;">フォーム</a> <a href="/practice-stroke/tags/%E3%83%AA%E3%82%B9%E3%83%88%E8%A1%A8%E8%A8%98/" style="font-size: 10px;">リスト表記</a> <a href="/practice-stroke/tags/%E3%83%AA%E3%83%80%E3%82%A4%E3%83%AC%E3%82%AF%E3%83%88/" style="font-size: 10px;">リダイレクト</a> <a href="/practice-stroke/tags/%E5%BB%BA%E7%89%A9/" style="font-size: 15.71px;">建物</a> <a href="/practice-stroke/tags/%E7%89%A9/" style="font-size: 20px;">物</a> <a href="/practice-stroke/tags/%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97/" style="font-size: 10px;">繰り返し</a> <a href="/practice-stroke/tags/%E8%8A%B1/" style="font-size: 17.14px;">花</a> <a href="/practice-stroke/tags/%E8%A1%97/" style="font-size: 20px;">街</a> <a href="/practice-stroke/tags/%E8%B7%AF%E5%9C%B0%E8%A3%8F/" style="font-size: 12.86px;">路地裏</a> <a href="/practice-stroke/tags/%E9%A2%A8%E6%99%AF/" style="font-size: 14.29px;">風景</a> <a href="/practice-stroke/tags/%E9%A3%9F/" style="font-size: 12.86px;">食</a> <a href="/practice-stroke/tags/%E9%B3%A5/" style="font-size: 18.57px;">鳥</a>
     </div>
   </div>
 
@@ -650,6 +666,10 @@
       <ul>
         
           <li>
+            <a href="/practice-stroke/2022/08/14/220814/">問い合わせフォーム作成</a>
+          </li>
+        
+          <li>
             <a href="/practice-stroke/2022/08/13/220813/">foreachで写真のスライド</a>
           </li>
         
@@ -663,10 +683,6 @@
         
           <li>
             <a href="/practice-stroke/2022/08/10/220810/">PerlでCGIだった頃の自分を乗り越える</a>
-          </li>
-        
-          <li>
-            <a href="/practice-stroke/2022/08/09/220809/">ifの使いどころ—見せる状態のコントロール</a>
           </li>
         
       </ul>
