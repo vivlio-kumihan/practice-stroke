@@ -75,6 +75,117 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-220816" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/practice-stroke/2022/08/16/220816/" class="article-date">
+  <time class="dt-published" datetime="2022-08-16T11:38:21.000Z" itemprop="datePublished">2022-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/practice-stroke/2022/08/16/220816/">PDOに渡すSQLの命令の仕方</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ちょっとずつ捕まえられるようになってくる。<br>十七日目。</p>
+<img src="/practice-stroke/2022/08/16/220816/211231_1133170.jpg" class="">
+
+<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><p>初心者向け！　1時間！　PHPでBBSを作る！　という企画がYouTubeであったのでやったみた。<br>まず、</p>
+<ul>
+<li>初期状態でGETでアクセスするからスプールしているはずのDBの中身が表示できない。</li>
+<li>XSS対策ができてない。</li>
+</ul>
+<p>初心者に1時間で実務に通用するようなものは無理だな…という感想をもてた自分が嬉しい。<br>それと、SQLの命令の仕方をしっかり身につけないといけない。<br>PDOに渡す時に時間がかかった。</p>
+<p>で、XAMPなりMAMPで続けていくのはしんどいなと思う。<br>いちいちサーバーのStop and Goをしないとコードの変更に対応できない。<br>プロの人たちはこんなとっそいツールを使って開発してるのか？<br>僕が使い方を知らないだけか…</p>
+<p>WEBの現場で仕事している人にいろいろと聞きたくて仕方がない。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// // POSTで受信したかどうかをトリガーにする方法</span><br><span class="line">// if ($_POST) &#123;</span><br><span class="line">//   echo $_POST[&#x27;push_btn&#x27;];</span><br><span class="line">//   echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">//   echo $_POST[&#x27;name&#x27;];</span><br><span class="line">//   echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">//   echo $_POST[&#x27;comment&#x27;];</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// 時刻が合わなかった場合。</span><br><span class="line">// date_default_timezone_set(&quot;Asia/Tokyo&quot;);</span><br><span class="line"></span><br><span class="line">// フォームのボタンを押したかどうかをトリガーにする方法</span><br><span class="line">if ($_POST[&#x27;push_btn&#x27;]) &#123;</span><br><span class="line">  </span><br><span class="line">  // DB接続</span><br><span class="line">  try &#123;</span><br><span class="line">    $dsn = &quot;mysql:dbname=sample;host=localhost;charset=utf8&quot;;</span><br><span class="line">    $user = &quot;root&quot;;</span><br><span class="line">    $password = &quot;root&quot;;</span><br><span class="line">    $db_ins = new PDO($dsn, $user, $password);</span><br><span class="line">  &#125; catch (PDOException $e) &#123;</span><br><span class="line">    // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。</span><br><span class="line">    echo (&quot;接続に失敗しました。&quot; . $e-&gt;getMessage());</span><br><span class="line">    die();</span><br><span class="line">  &#125;</span><br><span class="line">  $db_ins-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  </span><br><span class="line">  try &#123;</span><br><span class="line">    // DBへ追加書き込みをする。</span><br><span class="line">    $date = date(&#x27;Y-m-d H:i:s&#x27;);</span><br><span class="line">    $sql = &quot;INSERT INTO `conf_board`(`name`, `comment`, `post_date`) VALUES (:name, :comment, :post_date)&quot;;</span><br><span class="line">    $stmt = $db_ins-&gt;prepare($sql);</span><br><span class="line">    $stmt-&gt;bindValue(&#x27;:name&#x27;, $_POST[&#x27;name&#x27;], PDO::PARAM_STR);</span><br><span class="line">    $stmt-&gt;bindValue(&#x27;:comment&#x27;, $_POST[&#x27;comment&#x27;], PDO::PARAM_STR);</span><br><span class="line">    $stmt-&gt;bindValue(&#x27;:post_date&#x27;, $date, PDO::PARAM_STR);</span><br><span class="line">    $stmt-&gt;execute();</span><br><span class="line">  </span><br><span class="line">    // PDOのデータ全部を取り出す。</span><br><span class="line">    $sql = &quot;SELECT * FROM `conf_board` WHERE 1&quot;;</span><br><span class="line">    $select_all = $db_ins-&gt;query($sql);</span><br><span class="line">  </span><br><span class="line">  &#125; catch (PDOException $e) &#123;</span><br><span class="line">    echo $e-&gt;getMessage();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;確認する&lt;/title&gt;</span><br><span class="line">  &lt;style&gt;</span><br><span class="line">    ....</span><br><span class="line">    ....</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;bbs&quot;&gt;</span><br><span class="line">      &lt;h1&gt;BBS&lt;/h1&gt;</span><br><span class="line">      &lt;div class=&quot;board&quot;&gt;</span><br><span class="line">        &lt;?php foreach ($select_all as $row) &#123; ?&gt;</span><br><span class="line">        &lt;article&gt;</span><br><span class="line">          &lt;div class=&quot;name_area&quot;&gt;</span><br><span class="line">            &lt;span&gt;名前：&lt;/span&gt;</span><br><span class="line">            &lt;p class=&quot;user_name&quot;&gt;&lt;?php echo $row[&#x27;name&#x27;]; ?&gt;&lt;/p&gt;</span><br><span class="line">            &lt;span&gt;時刻：&lt;/span&gt;</span><br><span class="line">            &lt;time&gt;&lt;?php echo $row[&#x27;post_date&#x27;]; ?&gt;&lt;/time&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &lt;p class=&quot;comment_area&quot;&gt;&lt;?php echo $row[&#x27;comment&#x27;]; ?&gt;&lt;/p&gt;</span><br><span class="line">        &lt;/article&gt;</span><br><span class="line">        &lt;?php &#125; ?&gt;</span><br><span class="line"></span><br><span class="line">        &lt;form class=&quot;form&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">          &lt;div&gt;</span><br><span class="line">            &lt;!-- ボタンを押すとvalueの値が送られるようだ。 --&gt;</span><br><span class="line">            &lt;button type=&quot;submit&quot; name=&quot;push_btn&quot; value=&quot;pushed button&quot;&gt;書き込む&lt;/button&gt;</span><br><span class="line">            &lt;label&gt;名前：&lt;/label&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&quot;&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &lt;div&gt;</span><br><span class="line">            &lt;textarea name=&quot;comment&quot; cols=&quot;30&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/16/220816/" data-id="cl6xl7lws0000oxus5e6ffavf" data-title="PDOに渡すSQLの命令の仕方" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/SQL/" rel="tag">SQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-220815" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/practice-stroke/2022/08/15/220815/" class="article-date">
+  <time class="dt-published" datetime="2022-08-15T12:08:48.000Z" itemprop="datePublished">2022-08-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/practice-stroke/2022/08/15/220815/">Bootstrapで誤魔化すか、それとも...</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>とにかく当たり前に登っていくこと。<br>十六日目。</p>
+<img src="/practice-stroke/2022/08/15/220815/220814_A7D_PICT4935.jpg" class="">
+
+<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><p>BBSの見た目を変える。</p>
+<ul>
+<li>書き込みはモーダルで出して記入する。</li>
+<li>スレッドは上から新しい順で流す。</li>
+</ul>
+<p>Bootstrap！　万歳！</p>
+<h4 id="view-php"><a href="#view-php" class="headerlink" title="view.php"></a>view.php</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;kumihanBBS&lt;/title&gt;</span><br><span class="line">  &lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC&quot; crossorigin=&quot;anonymous&quot;&gt;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; href=&quot;./assets/css/view.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;col-6&quot;&gt;</span><br><span class="line">        &lt;h1&gt;kumihanBBS&lt;/h1&gt;</span><br><span class="line">        &lt;!-- エラーがあった場合に警告を出現させる仕組みは『if』。 --&gt;</span><br><span class="line">        &lt;?php if (count($errs)) &#123;</span><br><span class="line">          foreach ($errs as $err) &#123;</span><br><span class="line">            echo &#x27;&lt;p style=&quot;color: red&quot;&gt;&#x27; . $err . &#x27;&lt;/p&gt;&#x27;;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; ?&gt;</span><br><span class="line">        &lt;span class=&quot;write-button&quot;&gt;</span><br><span class="line">          &lt;button type=&quot;button&quot; class=&quot;btn btn-info&quot; data-bs-toggle=&quot;modal&quot; data-bs-target=&quot;#modal&quot; style=&quot;color: white&quot;&gt;書き込む&lt;/button&gt;</span><br><span class="line">        &lt;/span&gt;</span><br><span class="line">        &lt;div id=&quot;modal&quot; class=&quot;modal fade&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;</span><br><span class="line">          &lt;div class=&quot;modal-dialog&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;modal-content&quot;&gt;</span><br><span class="line">              &lt;div class=&quot;modal-header&quot;&gt;</span><br><span class="line">                &lt;h5 class=&quot;modal-title&quot;&gt;kumihanBBS&lt;/h5&gt;</span><br><span class="line">                &lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;</span><br><span class="line">              &lt;/div&gt;</span><br><span class="line">              &lt;div class=&quot;modal-body&quot;&gt;</span><br><span class="line">                &lt;nav&gt;</span><br><span class="line">                  &lt;!-- 書き込み --&gt;</span><br><span class="line">                  &lt;form class=&quot;BBS-input-form&quot; action=&quot;./board.php&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">                    &lt;div class=&quot;mb-3&quot;&gt;</span><br><span class="line">                      &lt;label class=&quot;form-label&quot;&gt;お名前&lt;/label&gt;</span><br><span class="line">                      &lt;input class=&quot;form-control&quot; type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo $_POST[&#x27;name&#x27;] ?&gt;&quot;&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                    &lt;div class=&quot;mb-3&quot;&gt;</span><br><span class="line">                      &lt;label class=&quot;form-label&quot;&gt;メッセージ&lt;/label&gt;</span><br><span class="line">                      &lt;textarea class=&quot;form-control&quot; name=&quot;comment&quot; rows=&quot;12&quot; cols=&quot;40&quot;&gt;&lt;?php echo $_POST[&#x27;comment&#x27;] ?&gt;&lt;/textarea&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                    &lt;div class=&quot;submit&quot;&gt;</span><br><span class="line">                      &lt;button type=&quot;submit&quot; class=&quot;btn btn-success btn-sm&quot; value=&quot;送信&quot;&gt;送信&lt;/button&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                  &lt;/form&gt;</span><br><span class="line">                &lt;/nav&gt;</span><br><span class="line">              &lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;!-- 掲示板 --&gt;</span><br><span class="line">        &lt;section&gt;</span><br><span class="line">          &lt;ul class=&quot;timeline&quot;&gt;</span><br><span class="line">            &lt;?php if (count($data)) :</span><br><span class="line">              foreach (array_reverse($data) as $row) : ?&gt;</span><br><span class="line">                &lt;li class=&quot;timeline-item mb-5&quot;&gt;</span><br><span class="line">                  &lt;div class=&quot;user&quot;&gt;&lt;?php echo html_escape($row[&#x27;name&#x27;]); ?&gt;&lt;/div&gt;</span><br><span class="line">                  &lt;p class=&quot;text-muted mb-2 fw-bold&quot;&gt;&lt;?php echo $row[&#x27;created&#x27;]; ?&gt;&lt;/p&gt;</span><br><span class="line">                  &lt;p class=&quot;text-muted&quot;&gt;&lt;?php echo nl2br(html_escape($row[&#x27;comment&#x27;])); ?&gt;&lt;/p&gt;</span><br><span class="line">                &lt;/li&gt;</span><br><span class="line">            &lt;?php endforeach;</span><br><span class="line">            endif; ?&gt;</span><br><span class="line">          &lt;/ul&gt;</span><br><span class="line">        &lt;/section&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js&quot; integrity=&quot;sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    var myModal = document.getElementById(&#x27;Modal&#x27;)</span><br><span class="line">    var myInput = document.getElementById(&#x27;Input&#x27;)</span><br><span class="line"></span><br><span class="line">    myModal.addEventListener(&#x27;shown.bs.modal&#x27;, function() &#123;</span><br><span class="line">      myInput.focus()</span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/15/220815/" data-id="cl6uptnpm00009tusd8ly77rk" data-title="Bootstrapで誤魔化すか、それとも..." class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/foreach/" rel="tag">foreach</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/glob/" rel="tag">glob</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-220814" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/practice-stroke/2022/08/14/220814/" class="article-date">
@@ -492,123 +603,11 @@
 
 
   
-    <article id="post-220806" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/practice-stroke/2022/08/06/220806/" class="article-date">
-  <time class="dt-published" datetime="2022-08-06T14:59:00.000Z" itemprop="datePublished">2022-08-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/practice-stroke/2022/08/06/220806/">写真のアップロードをしてみる</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>深い森の中で見つけた光のある場所。<br>そこにねぶく草木の声、水の音に耳を傾ける。<br>少しの希望。<br>七日目。</p>
-<img src="/practice-stroke/2022/08/06/220806/220528_1023405.jpg" class="">
-
-<p>とても久しぶりにIT系の勉強会（もくもく会）に参加した。<br>PHP、WPの構築を業務にしている主催者に、関西のWEB業界のことを訊く。</p>
-<ul>
-<li>WEB会社での制作においてWPはマスト。</li>
-<li>PHPを使えるWEB会社は少ない。なので、WPの構築の仕事はブルーオーシャン。</li>
-</ul>
-<p>やり方によっては十分参入できる業とということが分かった。<br>戦えそうだ。</p>
-<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><ul>
-<li>自分のサイトへ画像をアップロードする仕組みが作れた。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">写真のアップロード</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;pic send&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;画像のアップロード&lt;/h1&gt;</span><br><span class="line">  &lt;form action=&quot;./pic_receive.php&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;p&gt;&lt;input type=&quot;file&quot; name=&quot;img&quot;&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;&lt;/p&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">確認</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">$err = array();</span><br><span class="line">$img = $_FILES[&#x27;img&#x27;];</span><br><span class="line">var_dump($img);</span><br><span class="line">$type = exif_imagetype($img[&#x27;tmp_name&#x27;]);</span><br><span class="line">if ($type !== IMAGETYPE_JPEG &amp;&amp; $type !== IMAGETYPE_PNG) &#123;</span><br><span class="line">  $err[&#x27;pic&#x27;] = &#x27;送信できるのはJPEGかPNGのみです。&#x27;;</span><br><span class="line">&#125; elseif($img[&#x27;size&#x27;] &gt; 102400) &#123;</span><br><span class="line">  $err[&#x27;pic&#x27;] = &#x27;ファイルサイズは100KB以下にしてください。&#x27;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  $extension = pathinfo($img[&#x27;name&#x27;], PATHINFO_EXTENSION);</span><br><span class="line">  $new_img = md5(uniqid(mt_rand(), true)).&#x27;.&#x27;.$extention;</span><br><span class="line">  move_uploaded_file($img[&#x27;tmp_name&#x27;], &#x27;./images/&#x27;.$new_img);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;pic receive&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;写真受信のページ&lt;/h1&gt;</span><br><span class="line">  &lt;?php if (count($err) &gt; 0) &#123;</span><br><span class="line">    foreach($err as $row) &#123;</span><br><span class="line">      echo &#x27;&lt;p&gt;&#x27;.$row.&#x27;&lt;/p&gt;&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &#x27;&lt;a href=&quot;./pic_send.php&quot;&gt;戻る&lt;/a&gt;&#x27;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">  ?&gt;</span><br><span class="line">  &lt;div&gt;&lt;img src=&quot;https://kumihan.com/images/&lt;?php echo $new_img; ?&gt;&quot; alt=&quot;&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;?php &#125; ?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/06/220806/" data-id="cl6j4xq6n0000mwus1fdsezua" data-title="写真のアップロードをしてみる" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/deploy/" rel="tag">deploy</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-220805" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/practice-stroke/2022/08/05/220805/" class="article-date">
-  <time class="dt-published" datetime="2022-08-05T13:12:03.000Z" itemprop="datePublished">2022-08-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/practice-stroke/categories/PHP/">PHP</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/practice-stroke/2022/08/05/220805/">DBの森にて</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>薄明の中に浮かぶ糺の森<br>六日目。</p>
-<img src="/practice-stroke/2022/08/05/220805/220412_1001236.jpg" class="">
-
-<p>HTMLの仕組みを使ってオブジェクトを通信させ、PHPを使いDBへ手を突っ込む感覚はとても気持ちいいということですね。</p>
-<h3 id="今日の注目点"><a href="#今日の注目点" class="headerlink" title="今日の注目点"></a>今日の注目点</h3><ul>
-<li>サーバーへリクエストメソッドが『POST』だったら超グローバル変数をここで使うローカル変に格納してよしなに展開する。</li>
-<li>『$stmt-&gt;bindValue(…)』は強力。『$stmt』に格納されているオブジュエクとそれぞれに型を指定して変数に代入するというのを1行でやっている。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;search app&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;検あアプリ&lt;/h1&gt;</span><br><span class="line">  &lt;p&gt;名前の一致する会員を一覧で表示します。&lt;/p&gt;</span><br><span class="line">  &lt;form action=&quot;search_receive.php&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">    &lt;label&gt;お名前&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;検索する&quot;&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">受信側</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">if ($_SERVER[&#x27;REQUEST_METHOD&#x27;] === &#x27;POST&#x27;) &#123;</span><br><span class="line">  $name = $_POST[&#x27;name&#x27;];</span><br><span class="line">&#125;</span><br><span class="line">$dsn = &quot;mysql:dbname=sample;host=localhost;charset = utf8&quot;;</span><br><span class="line">$user = &quot;root&quot;;</span><br><span class="line">$password = &quot;root&quot;;</span><br><span class="line">$data = [];</span><br><span class="line"></span><br><span class="line">try&#123;</span><br><span class="line">  $dbh = new PDO($dsn, $user, $password);</span><br><span class="line">  $dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span><br><span class="line">  $sql = &quot;SELECT id, name FROM `user` WHERE `name` LIKE :name&quot;;</span><br><span class="line">  $stmt = $dbh-&gt;prepare($sql);</span><br><span class="line">  $stmt-&gt;bindValue(&#x27;:name&#x27;, &#x27;%&#x27;.$name.&#x27;%&#x27;, PDO::PARAM_STR);</span><br><span class="line">  $stmt-&gt;execute();</span><br><span class="line">  $count = $stmt-&gt;rowCount();</span><br><span class="line">  while($row = $stmt-&gt;fetch(PDO::FETCH_ASSOC))&#123;</span><br><span class="line">    $data[] = $row;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">  echo($e-&gt;getMessage());</span><br><span class="line">  die();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// $avg = &quot;SELECT AVG(`age`) FROM `user`&quot;;</span><br><span class="line">// $found_name = &quot;SELECT * FROM `user` WHERE `name` LIKE &#x27;%李%&#x27;&quot;;</span><br><span class="line">// $ord = &quot;SELECT `name`, `age` FROM `user` ORDER BY `age` DESC&quot;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;recive&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;会員データ一覧&lt;/h1&gt;</span><br><span class="line">  &lt;p&gt;&lt;?php echo $count; ?&gt;件見つかりました。&lt;/p&gt;</span><br><span class="line">  &lt;table&gt;</span><br><span class="line">    &lt;th&gt;id&lt;/th&gt;</span><br><span class="line">    &lt;th&gt;お名前&lt;/th&gt;</span><br><span class="line">    &lt;?php foreach($data as $row): ?&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">      &lt;td&gt;&lt;?php echo $row[&#x27;id&#x27;]; ?&gt;&lt;/td&gt;</span><br><span class="line">      &lt;td&gt;&lt;?php echo $row[&#x27;name&#x27;]; ?&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;?php endforeach; ?&gt;</span><br><span class="line">  &lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://vivlio-kumihan.github.io/practice-stroke/2022/08/05/220805/" data-id="cl6gij7zn0000mvus1xqaexfs" data-title="DBの森にて" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/SERVER-REQUEST-METHOD/" rel="tag">$_SERVER[&#39;REQUEST_METHOD&#39;]</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/DB/" rel="tag">DB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/practice-stroke/tags/bindValue/" rel="tag">bindValue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/practice-stroke/">&laquo; 戻る</a><a class="page-number" href="/practice-stroke/">1</a><span class="page-number current">2</span><a class="page-number" href="/practice-stroke/page/3/">3</a><a class="page-number" href="/practice-stroke/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/practice-stroke/page/10/">10</a><a class="extend next" rel="next" href="/practice-stroke/page/3/">次へ &raquo;</a>
+    <a class="extend prev" rel="prev" href="/practice-stroke/">&laquo; 戻る</a><a class="page-number" href="/practice-stroke/">1</a><span class="page-number current">2</span><a class="page-number" href="/practice-stroke/page/3/">3</a><a class="page-number" href="/practice-stroke/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/practice-stroke/page/11/">11</a><a class="extend next" rel="next" href="/practice-stroke/page/3/">次へ &raquo;</a>
   </nav>
 
 </section>
@@ -648,7 +647,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/07/">7月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/06/">6月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/05/">5月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2022/09/">9月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2022/08/">8月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2022/07/">7月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/07/">7月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/06/">6月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/practice-stroke/archives/2021/05/">5月 2021</a></li></ul>
     </div>
   </div>
 
@@ -661,6 +660,14 @@
       <ul>
         
           <li>
+            <a href="/practice-stroke/2022/09/01/220901/">220901</a>
+          </li>
+        
+          <li>
+            <a href="/practice-stroke/2022/08/25/220825/">220825</a>
+          </li>
+        
+          <li>
             <a href="/practice-stroke/2022/08/24/220824/">何回でもDBにアクセスしてええんやなと</a>
           </li>
         
@@ -670,14 +677,6 @@
         
           <li>
             <a href="/practice-stroke/2022/08/22/220822/">DBのパスワードはどうしたらいいのよ！</a>
-          </li>
-        
-          <li>
-            <a href="/practice-stroke/2022/08/21/220821/">発表用のサイトを動的にする</a>
-          </li>
-        
-          <li>
-            <a href="/practice-stroke/2022/08/20/220820/">発表用のサイトづくり</a>
           </li>
         
       </ul>
